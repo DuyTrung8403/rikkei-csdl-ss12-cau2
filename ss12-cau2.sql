@@ -10,6 +10,11 @@ CREATE TABLE sales (
     quantity INT
 );
 
+INSERT INTO products (name, stock)
+VALUES
+    ('iPhone 15', 5),
+    ('iPad Air', 2);
+
 CREATE OR REPLACE FUNCTION check_product_stock()
     RETURNS TRIGGER AS $$
 DECLARE
@@ -37,3 +42,7 @@ CREATE TRIGGER trg_before_sales_insert
     BEFORE INSERT ON sales
     FOR EACH ROW
 EXECUTE FUNCTION check_product_stock();
+
+INSERT INTO sales (product_id, quantity) VALUES (1, 3);
+INSERT INTO sales (product_id, quantity) VALUES (1, 4);
+INSERT INTO sales (product_id, quantity) VALUES (2, 5);
